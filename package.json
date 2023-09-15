@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "name": "tema-1---asincrono-y-callbacks",
   "version": "1.0.0",
   "description": "\"# Node\"",
@@ -16,4 +17,9 @@
     "url": "https://github.com/borjalopz025/Node/issues"
   },
   "homepage": "https://github.com/borjalopz025/Node#readme"
+=======
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+>>>>>>> dia3
 }
