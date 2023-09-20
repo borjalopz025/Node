@@ -1,5 +1,5 @@
 
- class Books {
+ class Book{
     constructor( titulo ,autor,tapa,precio,foto,id){
         this.titulo = titulo
         this.autor = autor
@@ -13,4 +13,4 @@
     
 }
 
-module.exports=Books
+module.exports=Book

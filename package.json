@@ -1,25 +1,5 @@
 {
-<<<<<<< HEAD
-  "name": "tema-1---asincrono-y-callbacks",
-  "version": "1.0.0",
-  "description": "\"# Node\"",
-  "main": "retosDia1.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/borjalopz025/Node.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/borjalopz025/Node/issues"
-  },
-  "homepage": "https://github.com/borjalopz025/Node#readme"
-=======
   "dependencies": {
     "express": "^4.18.2"
   }
->>>>>>> dia3
 }

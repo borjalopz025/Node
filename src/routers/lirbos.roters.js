@@ -4,12 +4,12 @@ const libCtrl = require('../controller/libros.controller');
 
 router.get('/', libCtrl.getLibro);
 
-router.get('/libro', libCtrl.getLibro2)
+router.get('/libros', libCtrl.getLibro2)
 
-router.post('/libro', libCtrl.postLibro);
+router.post('/libros', libCtrl.postLibro);
 
-router.put('/libro', libCtrl.putLibro);
+router.put('/libros', libCtrl.putLibro);
 
-router.delete('/libro', libCtrl.deleteLibro);
+router.delete('/libros', libCtrl.deleteLibro);
 
 module.exports = router;
