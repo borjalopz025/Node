@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="poke.css">
+    <title>Document</title>
+</head>
+<body>
+    <main>
+        <div class="contenedor">
+            <h1>Pokémon</h1>
+            <div class="espacio">
+                <label>Pokémon</label>
+                <input id="nombre" required>
+            </div>
+            <div class="espacio">
+                <button class="but1" onclick="insertar()">insertar</button>
+            </div>
+            <div class="espacio">
+                <button class="but2" onclick="mostrar()">mostrar</button>
+            </div>
+            <div class="espacio">
+                <label>Nombre</label>
+                <input id="mostrar" required>
+                <label>Imagen</label>
+                <img src="" id="imagen">
+                <label >Habilidades</label>
+                <div  class="hab" id="habilidades"> </div>
+            </div>
+        </div>
+    </main>
+    <script  src="poke.js"></script>
+</body>
+</html>

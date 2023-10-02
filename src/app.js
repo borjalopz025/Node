@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const libroRouter = require('./routers/libro.routers');
-const librosRouter = require('./routers/lirbos.roters');
+const librosRouter = require('./routers/lirbos.routers');
 const errorHandling = require('./error/errorHandling');
 
 const app = express();

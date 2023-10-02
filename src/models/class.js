@@ -1,12 +1,12 @@
 
  class Book{
     constructor( titulo ,autor,tapa,precio,foto,id){
-        this.titulo = titulo
-        this.autor = autor
-        this.tapa = tapa
-        this.precio = precio
-        this.foto = foto
-        this.id = id
+        this.title = titulo
+        this.author = autor
+        this.type = tapa
+        this.price = precio
+        this.photo = foto
+        this.id_book = id
 
     }
        

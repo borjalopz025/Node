@@ -2,7 +2,7 @@ const {Router} = require('express');
 const router = Router();
 const libCtrl = require('../controller/libros.controller');
 
-router.get('/', libCtrl.getLibro);
+router.get('/librosid', libCtrl.getLibro);
 
 router.get('/libros', libCtrl.getLibro2)
 
