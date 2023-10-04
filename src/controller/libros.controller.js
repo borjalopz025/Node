@@ -16,15 +16,16 @@ const getLibro = (req , res) =>
    
    
     let respuesta='';
+    let libroEncontrado;
     console.log(req.query);
    
 
     if (req.query.id) {
         console.log('aqui estamos');
-        libros = libros.filter(book => book.id_book == req.query.id);
+        libroEncontrado = libros.filter(book => book.id_book == req.query.id);
         console.log(libros);
 
-        respuesta = {error: false, codigo: 2, mensaje: 'libro encontrado', data: libros}
+        respuesta = {error: false, codigo: 2, mensaje: 'libro encontrado', data: libroEncontrado}
 
     } else {
       respuesta = { error: true,codigo: 404 , mensaje:'Libro no encontrado'};
@@ -67,19 +68,20 @@ const postLibro = (req , res) =>
 const putLibro = (req , res) =>
 {
     let resu = '';
+    let id ;
     let libroModificado;
    
-    if(req.body.id)
+    if(req.body.id_book)
     {
-        libroModificado = libros.find( val => val.id == req.body.id)
+        libroModificado = libros.find(val => val.id_book == req.body.id_book)
         console.log(libroModificado);
-        if(libroModificado != -1){
-            libroModificado.titulo = req.body.titulo
-            libroModificado.autor = req.body.autor
-            libroModificado.tapa = req.body.tapa
-            libroModificado.precio = req.body.precio
-            libroModificado.foto = req.body.foto
-            libroModificado.id = req.body.id
+        if(-1){
+            libroModificado.title = req.body.title
+            libroModificado.author = req.body.author
+            libroModificado.type = req.body.type
+            libroModificado.price = req.body.price
+            libroModificado.photo = req.body.photo
+            libroModificado.id_book = req.body.id_book
             resu={error: false, codigo: 200, mensaje: 'libro modificado' ,data: libroModificado }
         }else{
             resu={error: true, codigo: 404, mensaje: 'libro no modificado'}
