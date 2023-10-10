@@ -1,113 +1,118 @@
-const Book = require('../models/class');
-
-let libros=[
-    new Book("como engañar a un ladron","Tapa blanda","German Artegoitia",20,"https://oxigenoalavida.files.wordpress.com/2013/11/si-vienes-a-robar-mi-vecino-es-rico.jpg",1),
-    new Book("El gato que le gusta el agua","Tapa blanda","Alvaro caravaca",15,"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgrf5XzrTECvT17TS1XgRLLDo7qDAO2UTO5A&usqp=CAU",2),
-    new Book("El ciego casimiro","Tapa blanda","Casimiro gonzalez ",35,"https://s3.ppllstatics.com/diariovasco/www/pre2017/multimedia/noticias/201603/19/media/broma-youtuber--575x323.jpg",3),
-    new Book("Playa sin arena","Tapa blanda","Gonzalo perez",19.99,"https://www.lavanguardia.com/files/image_449_220/uploads/2021/12/30/61cd8c72af32c.jpeg",4),
-
-]
+const { response } = require("express");
+const {pool} = require("../dataBase")
 
 
 
-
-const getLibro = (req , res) =>
+const getLibro = async (req , res) =>
 {
-   
-   
-    let respuesta='';
-    let libroEncontrado;
-    console.log(req.query);
-   
-
-    if (req.query.id) {
-        console.log('aqui estamos');
-        libroEncontrado = libros.filter(book => book.id_book == req.query.id);
-        console.log(libros);
-
-        respuesta = {error: false, codigo: 2, mensaje: 'libro encontrado', data: libroEncontrado}
-
-    } else {
-      respuesta = { error: true,codigo: 404 , mensaje:'Libro no encontrado'};
-    }
-   
-    res.send(respuesta)
-}
-
-const getLibro2 = (req , res) =>
-{
-    let resu = '';
-
-    if(libros)
-    {
-        console.log('entro a libros');
-        resu = {error: false, codigo: 200,mensaje: ' libros encontrados', data: libros}
-    }else
+  try 
+  {
+        let sql;
+        if(req.query.id == null)
         {
-            resu = {error: true , codigo: 404, mensaje: 'libros no encontrados'}
-        }
-    
-    res.send(resu)
-}
-
-const postLibro = (req , res) => 
-{
-    let resu;
-    if(req.body){
-    const { titulo , autor , tapa , precio , foto , id} = req.body;
-    const nuevoLibro = new Book(titulo, autor, tapa, precio, foto, id);
-    libros.push(nuevoLibro)
-    resu = {error: false, codigo: 200, mensaje: 'Libro añadido', data: libros}
-    }else{
-        resu =  {error: true, codigo: 400, mensaje: 'Libro no añadido'}
-    }
-
-    res.send(resu)
-}
-
-const putLibro = (req , res) =>
-{
-    let resu = '';
-    let id ;
-    let libroModificado;
-   
-    if(req.body.id_book)
-    {
-        libroModificado = libros.find(val => val.id_book == req.body.id_book)
-        console.log(libroModificado);
-        if(-1){
-            libroModificado.title = req.body.title
-            libroModificado.author = req.body.author
-            libroModificado.type = req.body.type
-            libroModificado.price = req.body.price
-            libroModificado.photo = req.body.photo
-            libroModificado.id_book = req.body.id_book
-            resu={error: false, codigo: 200, mensaje: 'libro modificado' ,data: libroModificado }
+            sql = "SELECT * FROM students";
         }else{
-            resu={error: true, codigo: 404, mensaje: 'libro no modificado'}
+            sql = "SELECT * FROM students WHERE id_students =" + req.query.id;
         }
 
+        let [result] =  await pool.query(sql);
 
-    }else 
-    {
-        resu = {error: true, codigo: 404, mensaje: 'libro no modificado'}
-    }
-    res.send(resu)
+        res.send(result);
+  }
+  catch(err)
+  {
+        console.log(err);
+  }
+  
 }
 
-const deleteLibro = (req, res) =>
+const getLibro2 = async (req , res) =>
 {
-    let resu = 'libro borrado'
-    if(req.query.id)
+    try 
     {
-        libros = libros.filter(val => val.id != req.query.id)
+        let sql = "SELECT * FROM students"
+        console.log(sql);
 
-        resu = {error: false, codigo: 404, mensaje: 'Libro borrado' ,data: libros }
-
-    }else{
-        resu = {error: true, codigo: 404, mensaje: 'Libro no borrado'}
+        let [result] = await pool.query(sql)
+        res.send(result)
     }
-    res.send(resu)
+    catch(err)
+    {
+        console.log(err);
+    }
+}
+
+const postLibro = async (req , res) => 
+{
+    try
+    {
+        console.log(req.body);
+        let sql = "INSERT INTO students (id_students, firts_name , last_name , gru_id, ingreso)"+
+                                        "values ('"+ req.body.id_students + "','"+
+                                                     req.body.firts_name + "','"+
+                                                     req.body.last_name +"','"+
+                                                     req.body.gru_id +" ',' "+
+                                                     req.body.ingreso +"')";
+                                                     
+        console.log(sql);
+        let [result] = await pool.query(sql)
+        console.log(result);
+
+        if(result.insertId)
+            res.send(String(result.insertId))
+        else
+            res.send("-1")
+    }
+    catch(err)
+    {
+        console.log(err);
+    }
+}
+
+const putLibro = async (req , res) =>
+{
+    try
+    {
+        let sql;
+        console.log(req.body);
+        let parametros = [
+            req.body.id_students = req.body.id,
+            req.body.firts_name,
+            req.body.last_name,
+            req.body.gru_id,
+            req.body.ingreso
+        ]
+         sql =  "UPDATE students SET id_students = COALESCE (?, id_students) , "+
+                    "firts_name = COALESCE (?, firts_name) , "+
+                    "last_name = COALESCE (?, last_name) , "+
+                    "gru_id = COALESCE (?,gru_id) , "+
+                    "ingreso = COALESCE (?, ingreso) WHERE id_students = ?"
+
+        console.log(sql);
+        let [result] = await pool.query(sql,parametros)
+        res.send(result)
+    }
+    catch(err)
+    {
+        console.log(err);
+    }
+}
+
+const deleteLibro = async (req, res) =>
+{
+    try
+    {
+        console.log(req.body);
+        let sql = "DELETE FROM students WHERE id_students = ?"
+        console.log(sql);
+        let [result] = await pool.query(sql,[req.body.id])
+        res.send(result)
+    }
+    catch(err)
+    {
+        console.log(err);
+    }
+
 }
 
 
