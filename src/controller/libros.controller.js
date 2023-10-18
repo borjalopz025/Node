@@ -76,14 +76,14 @@ const putLibro = async (req , res) =>
         let sql;
         console.log(req.body);
         let parametros = [
-            req.body.id_students = req.body.id,
             req.body.firts_name,
             req.body.last_name,
             req.body.gru_id,
-            req.body.ingreso
+            req.body.ingreso,
+            req.body.id_students
+
         ]
-         sql =  "UPDATE students SET id_students = COALESCE (?, id_students) , "+
-                    "firts_name = COALESCE (?, firts_name) , "+
+         sql =  "UPDATE students SET firts_name = COALESCE (?, firts_name) , "+
                     "last_name = COALESCE (?, last_name) , "+
                     "gru_id = COALESCE (?,gru_id) , "+
                     "ingreso = COALESCE (?, ingreso) WHERE id_students = ?"
